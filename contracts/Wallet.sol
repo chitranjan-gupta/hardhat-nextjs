@@ -4,7 +4,7 @@ pragma solidity ^0.8.9;
 import "./String.sol";
 import "./Identity.sol";
 
-contract Wallet {
+contract DigitalWallet {
     DigitalIdentity digitalIdentity;
 
     struct Credential {
