@@ -6,9 +6,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build-client": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "build-local": "npx hardhat compile && npx hardhat run scripts/deploy.js --network localhost && npm run build-client",
+    "build":"npx hardhat compile && npx hardhat run scripts/deploy.js --network cloud && npm run build-client"
   },
   "repository": {
     "type": "git",
@@ -23,6 +25,7 @@
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^3.0.0",
     "autoprefixer": "^10.4.16",
+    "cross-env": "^7.0.3",
     "eslint": "^8.51.0",
     "eslint-config-next": "^13.5.6",
     "hardhat": "^2.18.2",
@@ -30,6 +33,7 @@
     "tailwindcss": "^3.3.3"
   },
   "dependencies": {
+    "dotenv": "^16.3.1",
     "ethers": "^6.8.0",
     "next": "^13.5.6",
     "react": "^18.2.0",

@@ -3,6 +3,7 @@
 import React from "react";
 import { getProvider } from "@/lib/provider";
 import { getContractInstance } from "@/lib/instance";
+import ContractAddress from "@/artifacts/contract-address.json";
 import SimpleStorageContract from "@/artifacts/contracts/SimpleStorage.sol/SimpleStorage.json";
 
 export default class ProviderContainer extends React.Component {
@@ -10,19 +11,26 @@ export default class ProviderContainer extends React.Component {
   async componentDidMount() {
     try {
       const provider = await getProvider();
-      let contractDefinition = null;
+      let contractDefinition = null,
+        contractAddress = "";
       switch (this.props.name ? this.props.name : "") {
         case "SimpleStorage": {
           contractDefinition = SimpleStorageContract;
+          contractAddress = ContractAddress.SimpleStorage;
           break;
         }
         default: {
           break;
         }
       }
-      const contract = contractDefinition
-        ? await getContractInstance(provider, contractDefinition)
-        : null;
+      const contract =
+        contractDefinition && contractAddress
+          ? await getContractInstance(
+              provider,
+              contractAddress,
+              contractDefinition
+            )
+          : null;
       this.setState({ provider, contract });
     } catch (err) {
       console.error(err);
